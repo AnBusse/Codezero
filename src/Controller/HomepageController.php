@@ -10,9 +10,10 @@ namespace App\Controller;
 
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class HomepageController
+class HomepageController extends AbstractController
 {
     /**
      * @Route("/")
@@ -27,7 +28,9 @@ class HomepageController
      */
     public function showAll($item)
     {
-        return new Response(sprintf('show me more %s ', $item));
+        return $this->render('single/singleItem.html.twig', [
+            'title' => ucwords(str_replace('-',' ', $item)),
+        ]);
     }
 
 }
