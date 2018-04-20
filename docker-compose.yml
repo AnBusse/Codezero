@@ -1,0 +1,42 @@
+version: '3'
+services:
+    php-cli:
+        image: docker-registry.nvsotap.nl:5000/nvs-common/php7-cli:72-1.0
+        links:
+           - mariadb
+        volumes:
+           - ./:/var/www/html:rw
+           - .docker/config/php-cli/zz-custom.ini:/usr/local/etc/php/conf.d/zz-custom.ini
+           - ~/.ssh:/home/netvlies/.ssh
+
+    nginx:
+        image: nginx:1.11.4
+        volumes:
+           - ./:/var/www/html:rw
+           - .docker/config/nginx:/etc/nginx
+        depends_on:
+           - php-fpm
+        ports:
+           - 80:80
+        environment:
+           - VIRTUAL_HOST=localhost
+
+    php-fpm:
+        image: docker-registry.nvsotap.nl:5000/nvs-common/php7-fpm:72-1.0
+        volumes:
+           - ./:/var/www/html:rw
+           - .docker/config/php-fpm/zz-custom.ini:/usr/local/etc/php/conf.d/zz-custom.ini
+        links:
+           - mariadb
+
+    mariadb:
+        image: docker-registry.nvsotap.nl:5000/nvs-common/mariadb-10:0.9
+        ports:
+           - 3306:3306
+        environment:
+             MYSQL_ROOT_PASSWORD: root
+             MYSQL_USER: root
+             MYSQL_PASSWORD: root
+             MYSQL_DATABASE: codezero
+        volumes:
+           - ./.docker/data/mariadb/:/var/lib/mysql:rw
