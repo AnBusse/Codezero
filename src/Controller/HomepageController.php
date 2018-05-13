@@ -71,8 +71,6 @@ class HomepageController extends AbstractController
                     cow est ribeye adipisicing. Pig hamburger pork belly enim. Do porchetta minim capicola irure pancetta chuck
                     fugiat.';
 
-        dump($cache);
-
         $cacheItem = $cache->getItem('markdown_'.md5($explanation));
 
         if(!$cacheItem->isHit()){
@@ -93,7 +91,6 @@ class HomepageController extends AbstractController
                             'Why would anyone do this??',
                             'Super helpful. Not.'
             ],
-            ''
         ]);
     }
 
@@ -104,7 +101,7 @@ class HomepageController extends AbstractController
     {
         $logger->info('article getting hearted!');
         // TODO actually heart - unheart this item
-        return new JsonResponse(['hearts' => rand(5,100)]);
+        return $this->json(['hearts' => rand(5, 100)]);
     }
 
 }
