@@ -42,12 +42,6 @@ class PostType
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OMSType")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $OMSType;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $categoryID;
@@ -66,15 +60,6 @@ class PostType
     public function setCategoryID($categoryID): void
     {
         $this->categoryID = $categoryID;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getOMSType()
-    {
-        return $this->OMSType;
     }
 
     /**

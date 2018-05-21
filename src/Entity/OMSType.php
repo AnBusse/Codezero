@@ -53,6 +53,11 @@ class OMSType
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $postType;
+
+    /**
      * @return mixed
      */
     public function getId()
